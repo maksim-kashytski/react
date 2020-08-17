@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import './index.scss';
+import App from './App/App';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const store = {
+  user: {
+    firstname: 'Просто',
+    lastname: 'Енот',
+  },
+  avatar: {
+    img: 'https://cs6.pikabu.ru/avatars/1097/v1097851-720572224.jpg',
+    alt: '',
+  }
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+ReactDOM.render(<App userData={store} />, document.getElementById('root'));

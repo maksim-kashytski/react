@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+
+  &__img {
+    border-radius: 50%;
+    border: 2px solid black;
+  }
+}

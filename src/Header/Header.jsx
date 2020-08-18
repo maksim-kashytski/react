@@ -2,10 +2,12 @@ import React from 'react';
 import styles from './Header.module.scss';
 
 function Header(props) {
+  const { firstname, lastname } = props.user;
+
   return (
     <header className={styles.header}>
-      <div>{props.user.firstname}</div>
-      <div>{props.user.lastname}</div>
+      <div>{firstname}</div>
+      <div>{lastname}</div>
     </header>
   );
 }

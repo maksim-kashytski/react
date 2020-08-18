@@ -1,5 +1,2 @@
-import Header from '../Header/Header';
-import Main from '../Main/Main';
-import Footer from '../Footer/Footer';
-
-export { Header, Main, Footer };
+import App from './App.jsx';
+export default App;

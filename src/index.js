@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './App';
+import App from './components/App';
 
 const store = {
   user: {
@@ -11,7 +11,11 @@ const store = {
   avatar: {
     img: 'https://cs6.pikabu.ru/avatars/1097/v1097851-720572224.jpg',
     alt: '',
-  }
+  },
 }
 
-ReactDOM.render(<App userData={store} />, document.getElementById('root'));
+const loader = {
+  src: 'https://cdn.dribbble.com/users/765253/screenshots/2540865/loader.gif',
+}
+
+ReactDOM.render(<App userData={store} loader={loader}/>, document.getElementById('root'));

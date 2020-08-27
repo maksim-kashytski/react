@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './Main.module.scss';
+import PropTypes from "prop-types";
 
 function Main(props) {
   const { img, alt } = props.avatar;
@@ -14,5 +15,9 @@ function Main(props) {
     </main>
   );
 }
+
+Main.propTypes = {
+    avatar: PropTypes.object,
+};
 
 export default Main;

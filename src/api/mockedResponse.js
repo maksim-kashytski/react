@@ -1,0 +1,51 @@
+export const mockedResponse = [
+  {
+    id: 1,
+    price: '400р/месяц',
+    title: 'Анна (няня)',
+    imageURL: 'https://avatars.mds.yandex.net/get-pdb/2821050/2d279009-369a-4b98-8471-52156fdbfa44/s1200?webp=false',
+    gender: 'female',
+  },
+  {
+    id: 2,
+    price: '25р/занятие',
+    title: 'Володя (преподаватель самбо)',
+    imageURL: 'https://img5.goodfon.ru/original/1024x1024/7/71/taylor-kitsch-muzhchina-litso-vzgliad.jpg',
+    gender: 'male',
+  },
+  {
+    id: 3,
+    price: '650р/месяц',
+    title: 'Серёга (нянь)',
+    imageURL: 'https://wallbox.ru/resize/1024x1024/wallpapers/main/201523/97120f594c6fea3.jpg',
+    gender: 'male',
+  },
+  {
+    id: 4,
+    price: '545р/месяц',
+    title: 'Кристина (няня)',
+    imageURL: 'https://avatars.mds.yandex.net/get-pdb/1709021/f4812bcf-f520-4c0e-956b-edf76e7c6d95/s1200?webp=false',
+    gender: 'female',
+  },
+  {
+    id: 5,
+    price: '50р/час',
+    title: 'Виталик (сантехник)',
+    imageURL: 'https://wallbox.ru/resize/1024x1024/wallpapers/main/201526/32e7b2c5229f9c7.jpg',
+    gender: 'male',
+  },
+  {
+    id: 6,
+    price: '600р/месяц',
+    title: 'Алифтина (домработница)',
+    imageURL: 'https://mota.ru/upload/resize/1024/1024/upload/wallpapers/2018/10/21/20/33/59791/sexy-model-woman-barbara-palvin-062.jpg',
+    gender: 'female',
+  },
+  {
+    id: 7,
+    price: '100р/час',
+    title: 'Саня (муж на час)',
+    imageURL: 'https://wallbox.ru/resize/1024x1024/wallpapers/main2/201728/14997858075964ea4f488e76.48065617.jpg',
+    gender: 'female',
+  },
+];

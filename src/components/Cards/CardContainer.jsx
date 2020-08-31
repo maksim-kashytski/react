@@ -21,7 +21,7 @@ class CardContainer extends React.Component {
     console.log(cards);
 
     if (cards === null) return (
-      <img className={styles.img} src={this.props.src} alt=""></img>
+      <img className={styles.img} src={this.props.preloader} alt=""></img>
     ); else {
       return (
         cards.length === 0
@@ -35,7 +35,7 @@ class CardContainer extends React.Component {
 }
 
 CardContainer.propTypes = {
-  src: PropTypes.string,
+  preloader: PropTypes.string,
 };
 
 export default CardContainer;

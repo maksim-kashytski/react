@@ -7,12 +7,12 @@ import PropTypes from 'prop-types';
 
 function App(props) {
     const { user } = props.userData;
-    const { src } = props.loader;
+    const { url } = props.preloader;
 
     return (
         <div className={styles.App}>
             <Header user={user}/>
-            <CardContainer src={src}/>
+            <CardContainer preloader={url}/>
             <Footer/>
         </div>
     );
@@ -20,7 +20,7 @@ function App(props) {
 
 App.propTypes = {
     userData: PropTypes.object,
-    loader: PropTypes.object,
+    preloader: PropTypes.object,
 };
 
 export default App;

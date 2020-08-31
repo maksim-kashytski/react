@@ -14,8 +14,8 @@ const store = {
   },
 }
 
-const loader = {
-  src: 'https://cdn.dribbble.com/users/765253/screenshots/2540865/loader.gif',
+const preloader = {
+  url: 'https://cdn.dribbble.com/users/765253/screenshots/2540865/loader.gif',
 }
 
-ReactDOM.render(<App userData={store} loader={loader}/>, document.getElementById('root'));
+ReactDOM.render(<App userData={store} preloader={preloader}/>, document.getElementById('root'));

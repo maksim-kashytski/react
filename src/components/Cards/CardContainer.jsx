@@ -61,7 +61,7 @@ class CardContainer extends React.Component {
 }
 
 CardContainer.propTypes = {
-  src: PropTypes.string,
+  preloader: PropTypes.string,
 };
 
 export default CardContainer;

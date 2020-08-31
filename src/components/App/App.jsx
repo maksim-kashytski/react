@@ -20,7 +20,7 @@ function App(props) {
 
 App.propTypes = {
     userData: PropTypes.object,
-    loader: PropTypes.object,
+    preloader: PropTypes.object,
 };
 
 export default App;

@@ -10,4 +10,13 @@
     border: .5rem solid #000000;
     border-radius: 25rem;
   }
+
+  &__title {
+    display: flex;
+    align-items: center;
+  }
+
+  &__button {
+    margin: .5rem 0 0 .5rem;
+  }
 }

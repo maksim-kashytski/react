@@ -1,5 +1,5 @@
 import { mockedResponse } from './mockedResponse';
 
 export const mockedApiCall = () => new Promise((response) => {
-  setTimeout(() => { response(mockedResponse); }, 2500);
+  setTimeout(() => { response(mockedResponse); }, 500);
 });

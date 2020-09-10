@@ -25,7 +25,7 @@ class CardContainer extends React.Component {
 
   updateContainer(card) {
     const { cards } = this.state;
-
+    
     card.id = (new Date()).getTime();
 
     this.setState({ cards: [...cards, card] })

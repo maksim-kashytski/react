@@ -9,20 +9,20 @@ class CardsCreationForm extends React.Component {
     this.state = {
       id: '',
       price: {
-        value: '',
-        isValid: false,
+        value: '700р/час',
+        isValid: true,
       },
       title: {
-        value: '',
-        isValid: false,
+        value: 'Анна (няня)',
+        isValid: true,
       },
       imageURL: {
-        value: '',
-        isValid: false,
+        value: 'https://avatars.mds.yandex.net/get-pdb/2821050/2d279009-369a-4b98-8471-52156fdbfa44/s1200?webp=false',
+        isValid: true,
       },
       gender: {
-        value: '',
-        isValid: false,
+        value: 'female',
+        isValid: true,
       },
       isValid: true
     };
@@ -70,6 +70,27 @@ class CardsCreationForm extends React.Component {
         imageURL: imageURL.value,
         gender: gender.value
       });
+
+      this.setState({
+        id: '',
+        price: {
+          value: '',
+          isValid: false,
+        },
+        title: {
+          value: '',
+          isValid: false,
+        },
+        imageURL: {
+          value: '',
+          isValid: false,
+        },
+        gender: {
+          value: '',
+          isValid: false,
+        },
+        isValid: true
+      });
     }
   }
 
@@ -81,25 +102,25 @@ class CardsCreationForm extends React.Component {
 
     return (
       <article className={styles.createForm}>
-        <label>Price: <input name="price" onChange={this.updateState}/></label>
+        <label>Price: <input name="price" value={this.state.price.value} onChange={this.updateState}/></label>
         {
           (() => { 
             if (!this.state.isValid && !this.state.price.isValid) return <Error></Error>
           })()
         }
-        <label>Title: <input name="title"  onChange={this.updateState}/></label>
+        <label>Title: <input name="title" value={this.state.title.value} onChange={this.updateState}/></label>
         {
           (() => { 
             if (!this.state.isValid && !this.state.title.isValid) return <Error></Error>
           })()
         }
-        <label>ImageURL: <input name="imageURL" onChange={this.updateState}/></label>
+        <label>ImageURL: <input name="imageURL" value={this.state.imageURL.value} onChange={this.updateState}/></label>
         {
           (() => { 
             if (!this.state.isValid && !this.state.imageURL.isValid) return <Error></Error>
           })()
         }
-        <label>Gender: <input name="gender" onChange={this.updateState}/></label>
+        <label>Gender: <input name="gender" value={this.state.gender.value} onChange={this.updateState}/></label>
         {
           (() => { 
             if (!this.state.isValid && !this.state.gender.isValid) return <Error></Error>

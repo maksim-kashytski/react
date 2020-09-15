@@ -36,16 +36,16 @@ class CardsCreationForm extends React.Component {
 
     switch (e.target.name) {
       case 'price':
-        isValid = !e.target.value.replace(/[1-9]\d+[А-я]+\/[А-я]+/, '');
+        isValid = new RegExp(/^[1-9]\d+[А-я]+\/[А-я]+$/).test(e.target.value);
         break;
       case 'title':
-        isValid = !e.target.value.replace(/([А-я]+\s)+\(([А-я]+\s*)+\)/, '');
+        isValid = new RegExp(/^([А-я]+\s)+\(([А-я]+\s*)+\)$/).test(e.target.value);
         break;
       case 'imageURL':
-        isValid = !e.target.value.replace(/https*:\/\/\w+\.\w+.*/, '');
+        isValid = new RegExp(/^https*:\/\/\w+\.\w+.*$/).test(e.target.value);
         break;
       case 'gender':
-        isValid = !e.target.value.replace(/(male)|(female)/, '');
+        isValid = new RegExp(/^(male)|(female)$/).test(e.target.value);
         break;
       default: 
         break;
@@ -54,8 +54,6 @@ class CardsCreationForm extends React.Component {
     this.setState({ [e.target.name]: { value: e.target.value, isValid } })
   }
 
-  updateContainer = this.props.updateContainer;
-
   formIsValid() {
     const { id, price, title, imageURL, gender } = this.state;
     const isValid = !(!price.isValid || !title.isValid || !imageURL.isValid || !gender.isValid);
@@ -63,7 +61,7 @@ class CardsCreationForm extends React.Component {
     this.setState({ isValid });
 
     if (isValid) {
-      this.updateContainer({
+      this.props.updateContainer({
         id,
         price: price.value,
         title: title.value,

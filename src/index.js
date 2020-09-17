@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.scss';
-import App from './components/App';
+import { Auth } from './components/Auth';
 
 const store = {
   user: {
@@ -18,4 +18,4 @@ const preloader = {
   url: 'https://cdn.dribbble.com/users/765253/screenshots/2540865/loader.gif',
 }
 
-ReactDOM.render(<App userData={store} preloader={preloader}/>, document.getElementById('root'));
+ReactDOM.render(<Auth userData={store} preloader={preloader} />, document.getElementById('root'));

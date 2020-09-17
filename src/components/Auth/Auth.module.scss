@@ -1,0 +1,25 @@
+.auth {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  max-width: 280px;
+  padding: 25px;
+  border-radius: 30px;
+  border: 3px solid black;
+
+  & > label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  & > p {
+    margin: 0 0 10px 0;
+    color: red;
+  }
+}

@@ -3,7 +3,7 @@ import styles from './Card.module.scss';
 import PropTypes from 'prop-types';
 
 function Card({ profile, removeItem }) {
-  const {id, price, title, imageURL, gender} = profile;
+  const { id, price, title, imageURL, gender } = profile;
 
   return (
     <article className={styles.profile}>

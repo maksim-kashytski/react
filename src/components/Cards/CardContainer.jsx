@@ -13,6 +13,12 @@ class CardContainer extends React.Component {
     this.updateContainer = this.updateContainer.bind(this);
   }
 
+  componentDidMount() {
+    mockedApiCall().then(
+      (profiles) => this.setState({ cards: [...profiles] })
+    );
+  }
+
   removeItem(id) {
     const { cards } = this.state;
     
@@ -25,16 +31,10 @@ class CardContainer extends React.Component {
 
   updateContainer(card) {
     const { cards } = this.state;
-
-    card.id = (new Date()).getTime();
+    
+    card.id = new Date().getTime();
 
     this.setState({ cards: [...cards, card] })
-  }
-  
-  componentDidMount() {
-    mockedApiCall().then(
-      (profiles) => this.setState({ cards: [...profiles] })
-    );
   }
 
   render() {

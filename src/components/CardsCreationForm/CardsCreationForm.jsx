@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './CardsCreationForm.module.scss';
-import Error from './Error.jsx';
-import PropTypes from 'prop-types';
+import { addCard } from '../../redux/actions';
+import { connect } from 'react-redux';
+import { Error } from '../Error';
 
 class CardsCreationForm extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class CardsCreationForm extends React.Component {
 
     this.updateState = this.updateState.bind(this);
     this.formIsValid = this.formIsValid.bind(this);
+    this.error = this.error.bind(this);
   }
 
   updateState(e) {
@@ -61,7 +63,9 @@ class CardsCreationForm extends React.Component {
     this.setState({ isValid });
 
     if (isValid) {
-      this.props.updateContainer({
+      const { addCardIntoState } = this.props;
+
+      addCardIntoState({
         id,
         price: price.value,
         title: title.value,
@@ -92,46 +96,29 @@ class CardsCreationForm extends React.Component {
     }
   }
 
+  error(name) {
+    if (!this.state.isValid && !this.state[name].isValid) return <Error />
+  }
+
   render() {
-    console.log(this.state);
-
-    if (this.state.isValid === true) console.log(true);
-    else console.log(false);
-
     return (
       <article className={styles.createForm}>
         <label>Price: <input name="price" value={this.state.price.value} onChange={this.updateState}/></label>
-        {
-          (() => { 
-            if (!this.state.isValid && !this.state.price.isValid) return <Error></Error>
-          })()
-        }
+        { this.error('price') }
         <label>Title: <input name="title" value={this.state.title.value} onChange={this.updateState}/></label>
-        {
-          (() => { 
-            if (!this.state.isValid && !this.state.title.isValid) return <Error></Error>
-          })()
-        }
+        { this.error('title') }
         <label>ImageURL: <input name="imageURL" value={this.state.imageURL.value} onChange={this.updateState}/></label>
-        {
-          (() => { 
-            if (!this.state.isValid && !this.state.imageURL.isValid) return <Error></Error>
-          })()
-        }
+        { this.error('imageURL') }
         <label>Gender: <input name="gender" value={this.state.gender.value} onChange={this.updateState}/></label>
-        {
-          (() => { 
-            if (!this.state.isValid && !this.state.gender.isValid) return <Error></Error>
-          })()
-        }
+        { this.error('gender') }
         <button onClick={this.formIsValid}>Create</button>
       </article>
     );
   }
 }
 
-CardsCreationForm.propTypes = {
-  create: PropTypes.func,
-};
+const mapDispatchToProps = (dispatch) => ({
+  addCardIntoState: (card) => dispatch(addCard(card)),
+});
 
-export default CardsCreationForm;
+export default connect(null, mapDispatchToProps)(CardsCreationForm);

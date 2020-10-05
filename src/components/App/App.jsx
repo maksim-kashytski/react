@@ -1,26 +1,59 @@
 import React from 'react';
-import Header from '../Header'
-import Footer from '../Footer'
-import { CardContainer } from '../Cards';
+import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { Switch, Route, Redirect, NavLink } from 'react-router-dom';
+import { CardContainer } from '../CardContainer';
+import { Auth } from '../Auth';
+import { Profile } from '../Profile';
+import { autoLogin } from '../../redux/actions';
 import styles from './App.module.scss';
-import PropTypes from 'prop-types';
 
-function App(props) {
-  const { user } = props.userData;
-  const { url } = props.preloader;
+const App = ({ accessType, authCheck }) => {
+  useEffect(() => {
+    authCheck();
+  }, []);
+
+  const Routes = (accessType) => {
+    return !accessType ? (
+      <Switch>
+        <Route path="/login" component={Auth}/>
+        <Redirect from="/cards" to="/"/>
+        <Redirect from="/profile" to="/"/>
+        <Redirect exact from="/" to="/login"/>
+      </Switch>
+    ) : (
+      <Switch>
+        <Route path="/cards" component={CardContainer}/>
+        <Route path="/profile" component={Profile}/>
+        <Redirect from="/login" to="/"/>
+        <Redirect exact from="/" to="/cards"/>
+      </Switch>
+    );
+  }
+
+  const Navigation = (accessType) => {
+    if (accessType) return (
+      <div className={styles.App__Nav}>
+        <NavLink to="/cards">Cards</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.App}>
-      <Header user={user}/>
-      <CardContainer preloader={url}/>
-      <Footer/>
+      { Navigation(accessType) }
+      { Routes(accessType) }
     </div>
   );
 }
 
-App.propTypes = {
-  userData: PropTypes.object,
-  preloader: PropTypes.object,
-};
+const mapStateToProps = (state) => ({
+  accessType: state.auth.accessType,
+});
 
-export default App;
+const mapDispatchToProps = (dispatch) => ({
+  authCheck: () => dispatch(autoLogin()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

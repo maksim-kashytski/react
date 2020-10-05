@@ -1,123 +1,109 @@
-import React, { Component } from "react";
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Redirect,
-  withRouter,
-  useHistory
-} from "react-router-dom";
-import App from '../App';
-import Profile from './Profile';
+import React from 'react';
 import styles from './Auth.module.scss';
+import { connect } from 'react-redux';
+import { Error } from '../Error';
+import { login, logout } from '../../redux/actions';
 
-function AuthExample(props) {
-  return (
-    <Router>
-      <div className={styles.auth}>
-        <AuthButton />
-        <ul>
-          <li>
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li>
-            <Link to="/protected">Cards</Link>
-          </li>
-        </ul>
-        <Route path="/login" component={Login} />
-      </div>
-      <PrivateRoute path="/profile" component={Profile} />
-      <PrivateRoute path="/protected" component={App} data={props} />
-    </Router>
-  );
-}
-
-const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true;
-    setTimeout(cb, 100); // fake async
-  },
-  signout(cb) {
-    this.isAuthenticated = false;
-    setTimeout(cb, 100);
-  }
-};
-
-const AuthButton = withRouter(
-  ({ history }) =>
-    fakeAuth.isAuthenticated ? (
-      <p>
-        Welcome!{" "}
-        <button
-          onClick={() => {
-            fakeAuth.signout(() => history.push("/"));
-          }}
-        >
-          Sign out
-        </button>
-      </p>
-    ) : (
-      <p>You are not logged in.</p>
-    )
-);
-
-function PrivateRoute({ data, component: Component, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        fakeAuth.isAuthenticated ? (
-          <Component {...props} {...data}/>
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
-
-class Login extends Component {
+class Auth extends React.Component {
   state = {
-    redirectToReferrer: false,
-    login: '',
-    password: ''
-  };
+      login: {
+        value: '',
+        isValid: true,
+      },
+      password: {
+        value: '',
+        isValid: true,
+      },
+      accessType: {
+        value: '',
+        isValid: true,
+      },
+      isValid: true
+  }
 
   updateState = (e) => {
-    this.setState({ [e.target.name]: e.target.value })
+    let isValid = false;
+
+    switch (e.target.name) {
+      case 'login':
+        isValid = new RegExp(/^[a-zA-Z0-9\.@]+$/).test(e.target.value);
+        break;
+      case 'password':
+        isValid = new RegExp(/^[a-zA-Z0-9]+$/).test(e.target.value);
+        break;
+      case 'accessType':
+        isValid = new RegExp(/^(User|Admin)$/).test(e.target.value);
+        break;
+      default: 
+        break;
+    }
+
+    this.setState({ [e.target.name]: { value: e.target.value, isValid } })
   }
 
-  login = () => {
-    fakeAuth.authenticate(() => {
+  formIsValid = () => {
+    const { login, password, accessType } = this.state;
+    const isValid = !(!login.isValid || !password.isValid || !accessType.isValid);
+    
+    this.setState({ isValid });
+
+    if (isValid) {
+      this.props.userLogin(login.value, accessType.value);
       this.setState({
-        redirectToReferrer: true
+        login: {
+          value: '',
+          isValid: true,
+        },
+        password: {
+          value: '',
+          isValid: true,
+        },
+        accessType: {
+          value: '',
+          isValid: true,
+        },
+        isValid: true
       });
-    });
-  };
+    }
+  }
+
+  error = (name) => {
+    if (!this.state.isValid && !this.state[name].isValid) return <Error />
+  }
 
   render() {
-    let { from } = this.props.location.state || { from: { pathname: "/" } };
-    let { redirectToReferrer } = this.state;
-
-    console.log(this.state);
-
-    if (redirectToReferrer) return <Redirect to={from} />;
-
     return (
       <article className={styles.authForm}>
-        <p>You must log in to view the page at {from.pathname}</p>
-        <label>Login: <input name="login" onChange={this.updateState}/></label>
-        <label>Password: <input name="password"  onChange={this.updateState}/></label>
-        <button onClick={this.login}>Log in</button>
+        <label>Login: <input
+          name="login"
+          value={this.state.login.value}
+          placeholder="example@qwerty.com"
+          onChange={this.updateState}/>
+        </label>
+        { this.error('login') }
+        <label>Password: <input 
+          name="password"
+          value={this.state.password.value}
+          placeholder="123456"
+          onChange={this.updateState}/>
+        </label>
+        { this.error('password') }
+        <label>Access: <input
+          name="accessType"
+          value={this.state.accessType.value}
+          placeholder="Admin / User"
+          onChange={this.updateState}/>
+        </label>
+        { this.error('accessType') }
+        <button onClick={this.formIsValid}>Login</button>
       </article>
     );
   }
 }
 
-export default AuthExample;
+const mapDispatchToProps = (dispatch) => ({
+  userLogin: (username, accessType) => dispatch(login(username, accessType)),
+  userLogout: () => dispatch(logout()),
+});
+
+export default connect(null, mapDispatchToProps)(Auth);

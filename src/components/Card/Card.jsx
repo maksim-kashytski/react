@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from './Card.module.scss';
-import PropTypes from 'prop-types';
 
 function Card({ profile, removeItem }) {
   const { id, price, title, imageURL, gender } = profile;
+
+  const remove = () => removeItem(id);
 
   return (
     <article className={styles.profile}>
@@ -11,7 +12,7 @@ function Card({ profile, removeItem }) {
       <section>
         <div className={styles.profile__title}>
           <h2>{title}</h2>
-          <button className={styles.profile__button} onClick={() => removeItem(id)}>X</button>
+          <button className={styles.profile__button} onClick={remove}>X</button>
         </div>
         <p>{gender}</p>
         <p>{price}</p>
@@ -19,10 +20,5 @@ function Card({ profile, removeItem }) {
     </article>
   );
 }
-
-Card.propTypes = {
-  profile: PropTypes.object,
-  removeItem: PropTypes.func,
-};
 
 export default Card;
